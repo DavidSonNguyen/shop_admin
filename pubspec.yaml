@@ -45,7 +45,7 @@ dependencies:
   http: ^1.2.1
   intl: any
   calendar_view:
-    path: /Users/giangvisonnguyen/Desktop/calendar_view
+    path: calendar_view
 
 dev_dependencies:
   flutter_test:

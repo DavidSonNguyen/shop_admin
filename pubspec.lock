@@ -124,8 +124,8 @@ packages:
   calendar_view:
     dependency: "direct main"
     description:
-      path: "/Users/giangvisonnguyen/Desktop/calendar_view"
-      relative: false
+      path: calendar_view
+      relative: true
     source: path
     version: "1.1.0"
   characters:
