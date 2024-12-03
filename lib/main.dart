@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_admin/business/blocs/app_bloc.dart';
+import 'package:shop_admin/features/areas/business/bloc.dart';
+import 'package:shop_admin/features/areas/repository/repository_impl.dart';
+import 'package:shop_admin/features/areas/repository/services/area_main_service_impl.dart';
+import 'package:shop_admin/features/areas/state.dart';
+import 'package:shop_admin/features/areas/view/area_view.dart';
 import 'package:shop_admin/repository/repository_impl.dart';
 import 'package:shop_admin/service/app_service_impl.dart';
 import 'package:shop_admin/service/client_services.dart';
@@ -18,7 +23,17 @@ void main() {
           create: (context) => AppBloc(
             repository: AppRepositoryImpl(
               service: AppServiceImpl(
-                AppClient(),
+                AppServiceClient(),
+              ),
+            ),
+          ),
+        ),
+        BlocProvider<AreaBloc>(
+          create: (context) => AreaBloc(
+            AreaState(),
+            AreaRepositoryImpl(
+              areaMainService: AreaMainServiceImpl(
+                AppServiceClient(),
               ),
             ),
           ),
@@ -81,6 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Row(
           children: [
+            const AreaView(),
             AppDrawer(
               minWidth: 200.0,
               drawer: (BuildContext context, AnimationController controller) {

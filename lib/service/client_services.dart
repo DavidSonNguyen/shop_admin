@@ -3,17 +3,21 @@ import 'dart:typed_data';
 
 import 'package:http/http.dart';
 
-class AppClient extends BaseClient {
-  static final AppClient _singleton = AppClient._internal();
+class AppServiceClient extends BaseClient {
+  static final AppServiceClient _singleton = AppServiceClient._internal();
 
-  factory AppClient() {
+  factory AppServiceClient() {
     return _singleton;
   }
 
-  AppClient._internal();
+  AppServiceClient._internal();
 
   final Map<String, String> _interceptors = <String, String>{
     'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers':
+        'Origin, Content-Type, Access-Control-Allow-Methods',
   };
 
   final isLocal = true;
@@ -32,12 +36,12 @@ class AppClient extends BaseClient {
   ]) {
     return isLocal
         ? Uri.http(
-            'localhost:1234',
+            '127.0.0.1:8000',
             api,
             queryParameters,
           )
         : Uri.https(
-            '127.0.0.1:1234',
+            '127.0.0.1:8000',
             api,
             queryParameters,
           );

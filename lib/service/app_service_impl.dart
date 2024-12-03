@@ -6,7 +6,7 @@ import 'package:shop_admin/service/app_service.dart';
 import 'package:shop_admin/service/client_services.dart';
 
 class AppServiceImpl extends AppService {
-  final AppClient _clientServices;
+  final AppServiceClient _clientServices;
 
   AppServiceImpl(this._clientServices);
 

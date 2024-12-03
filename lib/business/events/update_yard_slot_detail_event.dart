@@ -5,8 +5,8 @@ import 'package:shop_admin/model/slot_detail_request.dart';
 
 part 'update_yard_slot_detail_event.g.dart';
 
-abstract class UpdateYardSlotDetail
-    implements Built<UpdateYardSlotDetail, UpdateYardSlotDetailBuilder>, AppEvent {
+abstract class UpdateYardSlotDetail extends AppEvent
+    implements Built<UpdateYardSlotDetail, UpdateYardSlotDetailBuilder> {
   UpdateYardSlotDetail._();
 
   BuiltList<SlotDetailRequest> get slots;
