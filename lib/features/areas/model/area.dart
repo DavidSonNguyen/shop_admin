@@ -7,6 +7,10 @@ abstract class Area implements Built<Area, AreaBuilder> {
 
   String get id;
 
+  String get name;
+
+  String get location;
+
   String get description;
 
   String get country;
@@ -19,8 +23,9 @@ abstract class Area implements Built<Area, AreaBuilder> {
 
   String get street;
 
-  // init builder
   static void _initializeBuilder(AreaBuilder builder) => builder
+    ..name = ''
+    ..location = ''
     ..description = ''
     ..country = ''
     ..city = ''
@@ -41,6 +46,8 @@ abstract class Area implements Built<Area, AreaBuilder> {
     return Area(
       (b) => b
         ..id = json['pk'] ?? ''
+        ..name = json['name'] ?? ''
+        ..location = fields['location'] ?? ''
         ..description = fields['description'] ?? ''
         ..country = fields['country'] ?? ''
         ..city = fields['city'] ?? ''

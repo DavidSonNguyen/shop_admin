@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop_admin/features/areas/business/bloc.dart';
 import 'package:shop_admin/features/areas/business/events.dart';
 import 'package:shop_admin/features/areas/model/area.dart';
@@ -89,28 +90,34 @@ class _HomeState extends State<HomeScreen> {
                       ),
                     ),
                     const Expanded(child: SizedBox.shrink()),
-                    Container(
-                      height: 50.0,
-                      padding: const EdgeInsets.all(4.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: BlocSelector<AreaBloc, AreaState, Area?>(
-                          bloc: areaBloc,
-                          selector: (state) {
-                            if (state.areas.isEmpty) {
-                              return null;
-                            }
-                            if (state.selectedAreaId.isEmpty) {
-                              return state.areas.values.first;
-                            }
-                            return state.areas[state.selectedAreaId];
-                          },
-                          builder: (context, selectedArea) {
-                            if (selectedArea == null) {
-                              return Text('Chưa chọn khu vực');
-                            }
-                            return Text(selectedArea.city);
-                          },
+                    GestureDetector(
+                      onTap: () {
+                        controller.reverse();
+                        context.pushNamed('/areas');
+                      },
+                      child: Container(
+                        height: 50.0,
+                        padding: const EdgeInsets.all(4.0),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: BlocSelector<AreaBloc, AreaState, Area?>(
+                            bloc: areaBloc,
+                            selector: (state) {
+                              if (state.areas.isEmpty) {
+                                return null;
+                              }
+                              if (state.selectedAreaId.isEmpty) {
+                                return state.areas.values.first;
+                              }
+                              return state.areas[state.selectedAreaId];
+                            },
+                            builder: (context, selectedArea) {
+                              if (selectedArea == null) {
+                                return Text('Chưa chọn khu vực');
+                              }
+                              return Text(selectedArea.street);
+                            },
+                          ),
                         ),
                       ),
                     ),

@@ -12,3 +12,19 @@ abstract class GetAreasEvent extends AreaEvent
   factory GetAreasEvent([void Function(GetAreasEventBuilder b) updates]) =
       _$GetAreasEvent;
 }
+
+abstract class SelectAreaEvent extends AreaEvent
+    implements Built<SelectAreaEvent, SelectAreaEventBuilder> {
+  String get areaId;
+
+  SelectAreaEvent._();
+
+  factory SelectAreaEvent.create(String areaId) {
+    return SelectAreaEvent(
+      (builder) => builder..areaId = areaId,
+    );
+  }
+
+  factory SelectAreaEvent([void Function(SelectAreaEventBuilder b) updates]) =
+      _$SelectAreaEvent;
+}

@@ -63,5 +63,12 @@ class AreaBloc extends Bloc<AreaEvent, AreaState> {
         },
       );
     });
+    on<SelectAreaEvent>((event, emit) {
+      emit(
+        state.rebuild(
+          (b) => b..selectedAreaId = event.areaId,
+        ),
+      );
+    });
   }
 }

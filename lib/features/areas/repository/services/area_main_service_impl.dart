@@ -12,6 +12,7 @@ class AreaMainServiceImpl implements AreaMainService {
   @override
   Future<Map<String, Area>> getAreas() async {
     final response = await appService.getRequest('/areas/');
+    print('Response: ${response.body}');
     final data = json.decode(response.body);
     final map = <String, Area>{};
     for (final item in data) {

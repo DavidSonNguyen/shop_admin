@@ -10,6 +10,10 @@ class _$Area extends Area {
   @override
   final String id;
   @override
+  final String name;
+  @override
+  final String location;
+  @override
   final String description;
   @override
   final String country;
@@ -27,6 +31,8 @@ class _$Area extends Area {
 
   _$Area._(
       {required this.id,
+      required this.name,
+      required this.location,
       required this.description,
       required this.country,
       required this.city,
@@ -35,6 +41,8 @@ class _$Area extends Area {
       required this.street})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'Area', 'id');
+    BuiltValueNullFieldError.checkNotNull(name, r'Area', 'name');
+    BuiltValueNullFieldError.checkNotNull(location, r'Area', 'location');
     BuiltValueNullFieldError.checkNotNull(description, r'Area', 'description');
     BuiltValueNullFieldError.checkNotNull(country, r'Area', 'country');
     BuiltValueNullFieldError.checkNotNull(city, r'Area', 'city');
@@ -55,6 +63,8 @@ class _$Area extends Area {
     if (identical(other, this)) return true;
     return other is Area &&
         id == other.id &&
+        name == other.name &&
+        location == other.location &&
         description == other.description &&
         country == other.country &&
         city == other.city &&
@@ -67,6 +77,8 @@ class _$Area extends Area {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, location.hashCode);
     _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, country.hashCode);
     _$hash = $jc(_$hash, city.hashCode);
@@ -81,6 +93,8 @@ class _$Area extends Area {
   String toString() {
     return (newBuiltValueToStringHelper(r'Area')
           ..add('id', id)
+          ..add('name', name)
+          ..add('location', location)
           ..add('description', description)
           ..add('country', country)
           ..add('city', city)
@@ -97,6 +111,14 @@ class AreaBuilder implements Builder<Area, AreaBuilder> {
   String? _id;
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
+
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
+
+  String? _location;
+  String? get location => _$this._location;
+  set location(String? location) => _$this._location = location;
 
   String? _description;
   String? get description => _$this._description;
@@ -130,6 +152,8 @@ class AreaBuilder implements Builder<Area, AreaBuilder> {
     final $v = _$v;
     if ($v != null) {
       _id = $v.id;
+      _name = $v.name;
+      _location = $v.location;
       _description = $v.description;
       _country = $v.country;
       _city = $v.city;
@@ -159,6 +183,9 @@ class AreaBuilder implements Builder<Area, AreaBuilder> {
     final _$result = _$v ??
         new _$Area._(
             id: BuiltValueNullFieldError.checkNotNull(id, r'Area', 'id'),
+            name: BuiltValueNullFieldError.checkNotNull(name, r'Area', 'name'),
+            location: BuiltValueNullFieldError.checkNotNull(
+                location, r'Area', 'location'),
             description: BuiltValueNullFieldError.checkNotNull(
                 description, r'Area', 'description'),
             country: BuiltValueNullFieldError.checkNotNull(

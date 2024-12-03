@@ -1,10 +1,11 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop_admin/features/areas/business/bloc.dart';
 import 'package:shop_admin/features/areas/business/events.dart';
+import 'package:shop_admin/features/areas/model/area.dart';
 import 'package:shop_admin/features/areas/state.dart';
-import 'package:shop_admin/model/enums.dart';
-import 'package:shop_admin/model/status.dart';
 
 class AreaView extends StatelessWidget {
   const AreaView({super.key});
@@ -12,31 +13,34 @@ class AreaView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final areaBloc = BlocProvider.of<AreaBloc>(context);
-    final event = GetAreasEvent();
-    areaBloc.add(event);
-    return BlocBuilder<AreaBloc, AreaState>(builder: (context, state) {
-      final loadingState = state.statuses[event.getStatusKey()] ?? Status.idle();
-      if (loadingState.loadingStatus == LoadingStatus.loading) {
-        return const Center(
-          child: CircularProgressIndicator(),
+    return BlocSelector<AreaBloc, AreaState, BuiltList<Area>>(
+      selector: (AreaState state) {
+        return BuiltList<Area>(state.areas.values);
+      },
+      builder: (context, areas) {
+        if (areas.isEmpty) {
+          return Text('Không có sân');
+        }
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: areas.length,
+          itemBuilder: (context, index) {
+            final area = areas[index];
+            return GestureDetector(
+              onTap: () {
+                areaBloc.add(
+                  SelectAreaEvent.create(area.id),
+                );
+                context.pop();
+              },
+              child: ListTile(
+                title: Text(area.street),
+                subtitle: Text(area.city),
+              ),
+            );
+          },
         );
-      }
-      if (loadingState.loadingStatus == LoadingStatus.error) {
-        return const Center(
-          child: Text('Error'),
-        );
-      }
-      return ListView.builder(
-        shrinkWrap: true,
-        itemCount: state.areas.length,
-        itemBuilder: (context, index) {
-          final area = state.areas[index];
-          return ListTile(
-            title: Text(area?.description ?? ''),
-            subtitle: Text(area?.city ?? ''),
-          );
-        },
-      );
-    });
+      },
+    );
   }
 }

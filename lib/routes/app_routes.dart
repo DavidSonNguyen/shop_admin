@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:shop_admin/ui/base_screen.dart';
+import 'package:shop_admin/ui/screens/areas_screen.dart';
 import 'package:shop_admin/ui/screens/home_screen.dart';
 
 class AppRoutes {
@@ -14,6 +15,11 @@ class AppRoutes {
                 name: '/home',
                 path: '/home',
                 builder: (context, state) => const HomeScreen(),
+              ),
+              GoRoute(
+                name: '/areas',
+                path: '/areas',
+                builder: (context, state) => const AreaScreen(),
               ),
             ],
           ),
