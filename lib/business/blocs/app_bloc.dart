@@ -1,12 +1,13 @@
 import 'package:built_collection/built_collection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:shop_admin/business/events/app_event.dart';
 import 'package:bloc/bloc.dart';
 import 'package:shop_admin/business/events/get_yard_slot_detail_event.dart';
 import 'package:shop_admin/business/events/update_yard_slot_detail_event.dart';
+import 'package:shop_admin/business/repository/repository.dart';
 import 'package:shop_admin/business/state.dart';
 import 'package:shop_admin/model/enums.dart';
 import 'package:shop_admin/model/yard_slot.dart';
-import 'package:shop_admin/repository/repository.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc({required AppRepository repository})
@@ -35,7 +36,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
           );
         }
       } catch (e) {
-        print(e);
+        debugPrint(e.toString());
       }
     });
     on<UpdateYardSlotDetail>((event, emit) async {

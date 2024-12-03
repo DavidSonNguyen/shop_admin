@@ -1,6 +1,6 @@
+import 'package:shop_admin/business/repository/repository.dart';
 import 'package:shop_admin/model/slot_detail_request.dart';
 import 'package:shop_admin/model/yard_slot.dart';
-import 'package:shop_admin/repository/repository.dart';
 import 'package:shop_admin/service/app_service.dart';
 
 class AppRepositoryImpl implements AppRepository {

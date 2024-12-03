@@ -10,12 +10,15 @@ abstract class AreaState implements Built<AreaState, AreaStateBuilder> {
 
   BuiltMap<String, Area> get areas;
 
-  BuiltMap<String, Status> get status;
+  String get selectedAreaId;
+
+  BuiltMap<String, Status> get statuses;
 
   // init builder
   static void _initializeBuilder(AreaStateBuilder builder) => builder
     ..areas = MapBuilder<String, Area>()
-    ..status = MapBuilder<String, Status>();
+    ..selectedAreaId = ''
+    ..statuses = MapBuilder<String, Status>();
 
   factory AreaState([void Function(AreaStateBuilder b) updates]) = _$AreaState;
 }

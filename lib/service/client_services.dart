@@ -14,10 +14,6 @@ class AppServiceClient extends BaseClient {
 
   final Map<String, String> _interceptors = <String, String>{
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers':
-        'Origin, Content-Type, Access-Control-Allow-Methods',
   };
 
   final isLocal = true;

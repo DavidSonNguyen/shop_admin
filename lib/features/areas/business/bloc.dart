@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:shop_admin/features/areas/business/events.dart';
+import 'package:shop_admin/features/areas/model/area.dart';
 import 'package:shop_admin/features/areas/repository/repository.dart';
 import 'package:shop_admin/features/areas/state.dart';
 import 'package:shop_admin/model/status.dart';
@@ -7,30 +11,30 @@ import 'package:shop_admin/model/status.dart';
 class AreaBloc extends Bloc<AreaEvent, AreaState> {
   final AreaRepository areaRepository;
 
-  void _handleEvent(
+  FutureOr<void> _handleEvent(
     AreaEvent event,
     Emitter<AreaState> emit, {
-    void Function()? onAsync,
-    AreaState Function()? onSuccess,
+    Future Function()? onAsync,
+    AreaState Function(dynamic)? onSuccess,
     AreaState Function(dynamic error)? onError,
   }) async {
     try {
       emit(
         state.rebuild(
-          (b) => b..status[event.runtimeType.toString()] = Status.loading(),
+          (b) => b..statuses[event.runtimeType.toString()] = Status.loading(),
         ),
       );
-      onAsync?.call();
+      final response = await onAsync?.call();
       emit(
-        (onSuccess?.call() ?? state).rebuild(
-          (b) => b..status[event.runtimeType.toString()] = Status.success(),
+        (onSuccess?.call(response) ?? state).rebuild(
+          (b) => b..statuses[event.runtimeType.toString()] = Status.success(),
         ),
       );
     } catch (e) {
       emit(
         (onError?.call(e) ?? state).rebuild(
           (b) => b
-            ..status[event.runtimeType.toString()] = Status.error(
+            ..statuses[event.runtimeType.toString()] = Status.error(
               message: e.toString(),
             ),
         ),
@@ -38,7 +42,7 @@ class AreaBloc extends Bloc<AreaEvent, AreaState> {
     } finally {
       emit(
         state.rebuild(
-          (b) => b..status.remove(event.runtimeType.toString()),
+          (b) => b..statuses.remove(event.runtimeType.toString()),
         ),
       );
     }
@@ -46,14 +50,18 @@ class AreaBloc extends Bloc<AreaEvent, AreaState> {
 
   AreaBloc(super.initialState, this.areaRepository) {
     on<GetAreasEvent>((event, emit) async {
-      _handleEvent(event, emit, onAsync: () async {
-        final areas = await areaRepository.getAreas();
-        emit(
-          state.rebuild(
-            (b) => b..areas.addAll(areas),
-          ),
-        );
-      });
+      await _handleEvent(
+        event,
+        emit,
+        onAsync: () {
+          return areaRepository.getAreas();
+        },
+        onSuccess: (response) {
+          return state.rebuild(
+            (b) => b..areas = MapBuilder<String, Area>(response),
+          );
+        },
+      );
     });
   }
 }

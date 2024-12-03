@@ -10,14 +10,22 @@ class _$AreaState extends AreaState {
   @override
   final BuiltMap<String, Area> areas;
   @override
-  final BuiltMap<String, Status> status;
+  final String selectedAreaId;
+  @override
+  final BuiltMap<String, Status> statuses;
 
   factory _$AreaState([void Function(AreaStateBuilder)? updates]) =>
       (new AreaStateBuilder()..update(updates))._build();
 
-  _$AreaState._({required this.areas, required this.status}) : super._() {
+  _$AreaState._(
+      {required this.areas,
+      required this.selectedAreaId,
+      required this.statuses})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(areas, r'AreaState', 'areas');
-    BuiltValueNullFieldError.checkNotNull(status, r'AreaState', 'status');
+    BuiltValueNullFieldError.checkNotNull(
+        selectedAreaId, r'AreaState', 'selectedAreaId');
+    BuiltValueNullFieldError.checkNotNull(statuses, r'AreaState', 'statuses');
   }
 
   @override
@@ -30,14 +38,18 @@ class _$AreaState extends AreaState {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is AreaState && areas == other.areas && status == other.status;
+    return other is AreaState &&
+        areas == other.areas &&
+        selectedAreaId == other.selectedAreaId &&
+        statuses == other.statuses;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, areas.hashCode);
-    _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, selectedAreaId.hashCode);
+    _$hash = $jc(_$hash, statuses.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -46,7 +58,8 @@ class _$AreaState extends AreaState {
   String toString() {
     return (newBuiltValueToStringHelper(r'AreaState')
           ..add('areas', areas)
-          ..add('status', status))
+          ..add('selectedAreaId', selectedAreaId)
+          ..add('statuses', statuses))
         .toString();
   }
 }
@@ -59,10 +72,16 @@ class AreaStateBuilder implements Builder<AreaState, AreaStateBuilder> {
       _$this._areas ??= new MapBuilder<String, Area>();
   set areas(MapBuilder<String, Area>? areas) => _$this._areas = areas;
 
-  MapBuilder<String, Status>? _status;
-  MapBuilder<String, Status> get status =>
-      _$this._status ??= new MapBuilder<String, Status>();
-  set status(MapBuilder<String, Status>? status) => _$this._status = status;
+  String? _selectedAreaId;
+  String? get selectedAreaId => _$this._selectedAreaId;
+  set selectedAreaId(String? selectedAreaId) =>
+      _$this._selectedAreaId = selectedAreaId;
+
+  MapBuilder<String, Status>? _statuses;
+  MapBuilder<String, Status> get statuses =>
+      _$this._statuses ??= new MapBuilder<String, Status>();
+  set statuses(MapBuilder<String, Status>? statuses) =>
+      _$this._statuses = statuses;
 
   AreaStateBuilder() {
     AreaState._initializeBuilder(this);
@@ -72,7 +91,8 @@ class AreaStateBuilder implements Builder<AreaState, AreaStateBuilder> {
     final $v = _$v;
     if ($v != null) {
       _areas = $v.areas.toBuilder();
-      _status = $v.status.toBuilder();
+      _selectedAreaId = $v.selectedAreaId;
+      _statuses = $v.statuses.toBuilder();
       _$v = null;
     }
     return this;
@@ -96,14 +116,19 @@ class AreaStateBuilder implements Builder<AreaState, AreaStateBuilder> {
     _$AreaState _$result;
     try {
       _$result = _$v ??
-          new _$AreaState._(areas: areas.build(), status: status.build());
+          new _$AreaState._(
+              areas: areas.build(),
+              selectedAreaId: BuiltValueNullFieldError.checkNotNull(
+                  selectedAreaId, r'AreaState', 'selectedAreaId'),
+              statuses: statuses.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'areas';
         areas.build();
-        _$failedField = 'status';
-        status.build();
+
+        _$failedField = 'statuses';
+        statuses.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'AreaState', _$failedField, e.toString());
